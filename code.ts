@@ -38,13 +38,16 @@ figma.ui.onmessage = msg => {
     
   } else if (msg.type === 'edit') {
     
-    // resize selected rect to new dims
+    // resize selected rects to new dims
 
     var scaled_width  = (msg.width * 16), 
         scaled_height = (msg.height * 16);
 
-    const rect = figma.currentPage.selection[0];
-    rect.resize(scaled_width, scaled_height)
+    for (const node of figma.currentPage.selection) {
+      if ("resize" in node) {
+        node.resize(scaled_width, scaled_height)
+      }
+    }
     
   }
 
