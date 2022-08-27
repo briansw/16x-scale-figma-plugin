@@ -1,0 +1,10 @@
+{
+  "name": "16x Scale",
+  "id": "1130450528073938833",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html"
+}
