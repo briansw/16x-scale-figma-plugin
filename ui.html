@@ -117,12 +117,11 @@
     new_ft_height = (new_in_height / 12);
 
     px_width_display.innerHTML = `${new_px_width}`;
-    // in_width_display.innerHTML = `${new_in_width}`;
-
     px_height_display.innerHTML = `${new_px_height}`;
-    // in_height_display.innerHTML = `${new_in_height}`;
-
+    
     // add the numbers into the input fields
+    console.log('in width', new_in_width)
+    console.log('in height', new_in_height)
     input_width.setAttribute('value', `${new_in_width}`);
     input_height.setAttribute('value', `${new_in_height}`);
 

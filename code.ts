@@ -1,13 +1,11 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, { width: 300, height: 156, title: "16x scale" });
-console.log('hi');
 
 // Trigger any time an element is selected
 figma.on("selectionchange", () => { 
-  
   const node = figma.currentPage.selection[0];
   
-  if (node !== undefined) {
+  if (node !== undefined && "resize" in node) {
     figma.ui.postMessage({
       width: node.width,
       height: node.height
