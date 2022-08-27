@@ -120,10 +120,8 @@
     px_height_display.innerHTML = `${new_px_height}`;
     
     // add the numbers into the input fields
-    console.log('in width', new_in_width)
-    console.log('in height', new_in_height)
-    input_width.setAttribute('value', `${new_in_width}`);
-    input_height.setAttribute('value', `${new_in_height}`);
+    input_width.value = new_in_width;
+    input_height.value = new_in_height;
 
   }
 
