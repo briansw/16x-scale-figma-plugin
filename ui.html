@@ -22,43 +22,40 @@
     padding: 16px;
   }
 
-  .section.gray { 
-    margin: 0;
-    background: #EBEBEB; 
+  .selected-dim { 
+    font-size: 10px; 
+    text-align: right; 
+    color: #9B9B9B;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  .column { 
-    display: inline-block; 
-    width: calc((100%) / 3);
-    font-size: 14px;
-    border-right: 1px solid #D9D9D9;
-    height: 66px;
-    overflow: hidden;
-    padding: 7px 0 0 12px;
-  }
-
-  .column:first-child { padding: 10px 0 0 0; }
-  .column:last-child { border-right: 0; }
-
-  .dim { display: inline-block; width: 20px; color: #9B9B9B; }
-  .label { color: #9B9B9B; font-size: 11px; }
-  .label.inset { padding: 0 0 0 24px; }
-
-  .line { height: 20px;}
-
-
-  input {
+  .dim-wrap {
+    position: relative;
     border: none;
-    height: 32px;
-    width: calc(50% - 12px);
-    border-radius: 4px;
+    height: 36px;
+    width: calc(50% - 5px);
+    border-radius: 6px;
     display: inline-block;
     margin: 0 0 16px 0;
     font-size: 14px;
     padding: 0 12px;
+    background: #F3F3F3;
   }
 
-  input:first-child { margin-right: 24px; }
+  .dim-wrap:first-child { margin-right: 10px; }
+
+  input {
+    border: none;
+    height: 36px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 0;
+    background: #F3F3F3;
+  }
 
   input[type=button], input[type=submit], input[type=reset], button { 
     border: none;
@@ -66,7 +63,7 @@
     width: 100%;
     height: 38px;
     background: #0085FF;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     color: #fff;
     margin: 0 0 12px 0;
@@ -75,44 +72,25 @@
   #edit {
     background: transparent;
     color: #0085FF;
-    margin: 0;
+    margin: -10px 0 0 0;
   }
 
 
 </style>
 
 <div class="section">
-  <div class="column">
-    <div class="line"><span class="dim">W</span> <span id="px_width">–</span></div>
-    <div class="line"><span class="dim">H</span> <span id="px_height">–</span></div>
-    <div class="label inset">px</div>
-  </div>
-
-  <div class="column">
-    <!-- <div class="line" id="in_width">–</div>
-    <div class="line" id="in_height">–</div> -->
-    <div class="label">in</div>
-  </div>
-
-  <div class="column">
-    <div class="line" id="ft_width">–</div>
-    <div class="line" id="ft_height">–</div>
-    <div class="label">ft</div>
-  </div>
-</div>
-
-<div class="section gray">
-  <div>
-    <div class="line" id="in_width">–</div>
+  <div class="dim-wrap">
+    <span class="selected-dim" id="px_width">–</span>
     <input placeholder="Width" id="width" value="">
   </div>
-  <div>
-    <div class="line" id="in_height">–</div>
+
+  <div class="dim-wrap">
+    <span class="selected-dim" id="px_height">–</span>
     <input placeholder="Height" id="height" value="">
   </div>
+
   <button id="add">Add shape</button>
   <button id="edit">Edit selection</button>
-  <!-- <br /> -->
 </div>
 
 <script>
@@ -138,18 +116,16 @@
     new_in_height = (new_px_height / 16);
     new_ft_height = (new_in_height / 12);
 
-    // px_width_display.innerHTML = `${new_px_width}`;
-    in_width_display.innerHTML = `${new_in_width}`;
-    // ft_width_display.innerHTML = `${new_ft_width}`;
+    px_width_display.innerHTML = `${new_px_width}`;
+    // in_width_display.innerHTML = `${new_in_width}`;
 
-    // px_height_display.innerHTML = `${new_px_height}`;
-    in_height_display.innerHTML = `${new_in_height}`;
-    // ft_height_display.innerHTML = `${new_ft_height}`;
+    px_height_display.innerHTML = `${new_px_height}`;
+    // in_height_display.innerHTML = `${new_in_height}`;
 
     // add the numbers into the input fields
     input_width.setAttribute('value', `${new_in_width}`);
     input_height.setAttribute('value', `${new_in_height}`);
-    
+
   }
 
   document.querySelector('#width').focus();

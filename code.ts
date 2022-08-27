@@ -1,5 +1,5 @@
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__, { width: 294, height: 268, title: "16x scale" });
+figma.showUI(__html__, { width: 300, height: 156, title: "16x scale" });
 console.log('hi');
 
 // Trigger any time an element is selected
