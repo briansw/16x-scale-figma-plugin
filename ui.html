@@ -24,55 +24,87 @@
 
   .selected-dim { 
     font-size: 10px; 
-    text-align: right; 
-    color: #9B9B9B;
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
+    color: #777;
+    position: relative;
+    top: -8px;
   }
 
   .dim-wrap {
     position: relative;
     border: none;
-    height: 36px;
+    height: 52px;
     width: calc(50% - 5px);
-    border-radius: 6px;
+    border-radius: 8px;
     display: inline-block;
     margin: 0 0 16px 0;
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 12px;
-    background: #F3F3F3;
+    background: #f0f0f0;
   }
 
   .dim-wrap:first-child { margin-right: 10px; }
 
   input {
     border: none;
-    height: 36px;
+    font-weight: 500;
+    height: 38px;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
     padding: 0;
-    background: #F3F3F3;
+    background: transparent;
   }
 
   input[type=button], input[type=submit], input[type=reset], button { 
     border: none;
-    border-radius: calc(36px / 2);
+    border-radius: 8px;
     width: 100%;
-    height: 38px;
+    height: 52px;
     background: #0085FF;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
     color: #fff;
     margin: 0 0 12px 0;
   }
 
   #edit {
+    height: 38px;
+    font-size: 14px;
+    padding: 0 31px;
+    width: auto;
     background: transparent;
+    border: 1.5px solid;
     color: #0085FF;
-    margin: -10px 0 0 0;
+    margin: 0;
+  }
+
+  .radio-wrap {
+    background: #f0f0f0;
+    width: 228px;
+    height: 38px;
+    border-radius: 8px;
+    padding: 3px;
+    display: inline-block;
+    margin: 0 12px 0 0;
+  }
+
+  .radio {
+    font-size: 14px;
+    color: #777;
+    font-weight: 500;
+    width: 74px;
+    height: 32px;
+    display: inline-block;
+    background: transparent;
+    border-radius: 6px;
+    text-align: center;
+    padding: 7px 0 0 0;
+    cursor: pointer;
+  }
+
+  .radio.selected {
+    background: #fff;
+    color: #000;
   }
 
 
@@ -80,17 +112,24 @@
 
 <div class="section">
   <div class="dim-wrap">
-    <span class="selected-dim" id="px_width">–</span>
     <input placeholder="Width" id="width" value="">
+    <span class="selected-dim" id="px_width">–</span>
   </div>
 
   <div class="dim-wrap">
-    <span class="selected-dim" id="px_height">–</span>
     <input placeholder="Height" id="height" value="">
+    <span class="selected-dim" id="px_height">–</span>
   </div>
 
-  <button id="add">Add shape</button>
-  <button id="edit">Edit selection</button>
+  <button id="add">Add</button>
+  <div class="edit-wrap">
+    <div class="radio-wrap">
+      <span data-dim="width" class="radio" id="radio-width">Width</span>
+      <span data-dim="height" class="radio" id="radio-height">Height</span>
+      <span data-dim="both" class="radio selected" id="radio-both">Both</span>
+    </div>
+    <button id="edit">Resize</button>
+  </div>
 </div>
 
 <script>
@@ -144,7 +183,24 @@
     const width = parseFloat(width_field.value, 10);
     const height = parseFloat(height_field.value, 10);
 
-    parent.postMessage({ pluginMessage: { type: 'edit', width, height } }, '*')
+    // find which .radio also has .selected and set to data-dim
+    const dim_to_edit = document.querySelector('.radio.selected').dataset.dim;
+
+    parent.postMessage({ pluginMessage: { type: 'edit', width, height, dim_to_edit } }, '*')
   }
+
+
+const radios = document.querySelectorAll('.radio');
+
+for (const radio of radios) {
+  radio.addEventListener('click', function handleClick() {
+    // remove selected
+    for (const radio of radios) {
+      radio.classList.remove('selected');
+    };
+    // add selected to clicked radio
+    radio.classList.add('selected');
+  });
+}
 
 </script>
